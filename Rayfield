@@ -168,9 +168,11 @@ local Minimised = false
 local Hidden = false
 local Debounce = false
 local Notifications = Rayfield.Notifications
+local IsOnMobile = table.find({Enum.Platform.IOS, Enum.Platform.Android}, game:GetService("UserInputService"):GetPlatform())
 
 local SelectedTheme = RayfieldLibrary.Theme.Default
 
+if IsOnMobile then
 RayfieldDrag = function(ui, dragui)
 	 if not dragui then dragui = ui end
 	 local UserInputService = game:GetService("UserInputService")
@@ -211,9 +213,7 @@ RayfieldDrag = function(ui, dragui)
 		 end
 	 end)
  end
-
-if table.find({Enum.Platform.IOS, Enum.Platform.Android}, game:GetService("UserInputService"):GetPlatform()) then
-RayfieldDrag(Main)
+RayfieldDrag(Rayfield.Main)
 end
 
 function ChangeTheme(ThemeName)
