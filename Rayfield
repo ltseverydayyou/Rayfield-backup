@@ -2494,6 +2494,7 @@ Toggle.Toggle.MouseButton1Click:Connect(function()
 		Hidden = false
 		Minimised = false
 		Unhide()
+		Maximise()
 	else
 		Hidden = true
 		Hide()
@@ -2515,6 +2516,7 @@ Topbar.Hide.MouseButton1Click:Connect(function()
 		Hidden = false
 		Minimised = false
 		Unhide()
+		Maximise()
 	else
 		Hidden = true
 		Hide()
@@ -2527,6 +2529,7 @@ UserInputService.InputBegan:Connect(function(input, processed)
 		if Hidden then
 			Hidden = false
 			Unhide()
+			Maximise()
 		else
 			Hidden = true
 			Hide()
