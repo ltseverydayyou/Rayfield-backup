@@ -150,6 +150,7 @@ end
 
 local Camera = workspace.CurrentCamera
 local Main = Rayfield.Main
+local Toggle = Rayfield.Toggle
 local Topbar = Main.Topbar
 local Elements = Main.Elements
 local LoadingFrame = Main.LoadingFrame
@@ -173,47 +174,48 @@ local IsOnMobile = table.find({Enum.Platform.IOS, Enum.Platform.Android}, game:G
 local SelectedTheme = RayfieldLibrary.Theme.Default
 
 if IsOnMobile then
-RayfieldDrag = function(ui, dragui)
-	 if not dragui then dragui = ui end
-	 local UserInputService = game:GetService("UserInputService")
-	 
-	 local dragging
-	 local dragInput
-	 local dragStart
-	 local startPos
-	 
-	 local function update(input)
-		 local delta = input.Position - dragStart
-		 ui.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
-	 end
-	 
-	 dragui.InputBegan:Connect(function(input)
-		 if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
-			 dragging = true
-			 dragStart = input.Position
-			 startPos = ui.Position
-			 
-			 input.Changed:Connect(function()
-				 if input.UserInputState == Enum.UserInputState.End then
-					 dragging = false
-				 end
-			 end)
-		 end
-	 end)
-	 
-	 dragui.InputChanged:Connect(function(input)
-		 if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
-			 dragInput = input
-		 end
-	 end)
-	 
-	 UserInputService.InputChanged:Connect(function(input)
-		 if input == dragInput and dragging then
-			 update(input)
-		 end
-	 end)
- end
-RayfieldDrag(Rayfield.Main)
+	RayfieldDrag = function(ui, dragui)
+		if not dragui then dragui = ui end
+		local UserInputService = game:GetService("UserInputService")
+
+		local dragging
+		local dragInput
+		local dragStart
+		local startPos
+
+		local function update(input)
+			local delta = input.Position - dragStart
+			ui.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
+		end
+
+		dragui.InputBegan:Connect(function(input)
+			if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+				dragging = true
+				dragStart = input.Position
+				startPos = ui.Position
+
+				input.Changed:Connect(function()
+					if input.UserInputState == Enum.UserInputState.End then
+						dragging = false
+					end
+				end)
+			end
+		end)
+
+		dragui.InputChanged:Connect(function(input)
+			if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
+				dragInput = input
+			end
+		end)
+
+		UserInputService.InputChanged:Connect(function(input)
+			if input == dragInput and dragging then
+				update(input)
+			end
+		end)
+	end
+	RayfieldDrag(Rayfield.Main)
+	RayfieldDrag(Rayfield.Toggle)
 end
 
 function ChangeTheme(ThemeName)
@@ -796,6 +798,10 @@ function Unhide()
 	wait(0.5)
 	Minimised = false
 	Debounce = false
+end
+
+function resetPos()
+	Main.Position = UDim2.new(0.5, 0,0.5, 0)
 end
 
 function Maximise()
@@ -2474,6 +2480,27 @@ Topbar.ChangeSize.MouseButton1Click:Connect(function()
 	end
 end)
 
+Toggle.Toggle.MouseButton1Click:Connect(function()
+	if Debounce then return end
+	if Hidden then
+		Hidden = false
+		Minimised = false
+		Unhide()
+	else
+		Hidden = true
+		Hide()
+	end
+end)
+
+Toggle.Pos.MouseButton1Click:Connect(function()
+	if Debounce then return end
+	if Hidden then
+		resetPos()
+	else
+		resetPos()
+	end
+end)
+
 Topbar.Hide.MouseButton1Click:Connect(function()
 	if Debounce then return end
 	if Hidden then
@@ -2527,12 +2554,9 @@ function RayfieldLibrary:LoadConfiguration()
 	end
 end
 
---[[task.delay(3.5, RayfieldLibrary.LoadConfiguration, RayfieldLibrary)
-if Rayfield:FindFirstChild("Notice") then
-	Rayfield.Notice.Visible = true
-	Rayfield.Notice.Interact.MouseButton1Click:Connect(function()
-		Rayfield.Notice.Visible = false
-	end)
-end]]
+task.delay(3.5, RayfieldLibrary.LoadConfiguration, RayfieldLibrary)
+if Rayfield:FindFirstChild("Toggle") and IsOnMobile then
+	Rayfield.Toggle.Visible = true
+end
 
-	return RayfieldLibrary
+return RayfieldLibrary
