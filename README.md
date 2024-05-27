@@ -112,7 +112,7 @@ local Toggle = Tab:CreateToggle({
 	Flag = "Toggle1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
 	Callback = function(Value)
 			-- The function that takes place when the toggle is pressed
-    		-- The variable (Value) is a boolean on whether the toggle is true or false
+			-- The variable (Value) is a boolean on whether the toggle is true or false
 	end,
 })
 ```
@@ -128,8 +128,8 @@ local ColorPicker = Tab:CreateColorPicker({
     Color = Color3.fromRGB(255, 0, 0),
     Flag = "ColorPicker1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
     Callback = function(newColor)
-       		-- The function that takes place when the color picker value changes
-        	-- The parameter (newColor) represents the newly selected color
+			-- The function that takes place when the color picker value changes
+			-- The parameter (newColor) represents the newly selected color
     end,
 })
 ```
@@ -150,7 +150,7 @@ local Slider = Tab:CreateSlider({
 	Flag = "Slider1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
 	Callback = function(Value)
 			-- The function that takes place when the slider changes
-    		-- The variable (Value) is a number which correlates to the value the slider is currently at
+			-- The variable (Value) is a number which correlates to the value the slider is currently at
 	end,
 })
 ```
@@ -185,7 +185,7 @@ local Input = Tab:CreateInput({
 	RemoveTextAfterFocusLost = false,
 	Callback = function(Text)
 			-- The function that takes place when the input is changed
-    		-- The variable (Text) is a string for the value in the text box
+			-- The variable (Text) is a string for the value in the text box
 	end,
 })
 ```
@@ -201,7 +201,7 @@ local Keybind = Tab:CreateKeybind({
 	Flag = "Keybind1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
 	Callback = function(Keybind)
 			-- The function that takes place when the keybind is pressed
-    		-- The variable (Keybind) is a boolean for whether the keybind is being held or not (HoldToInteract needs to be true)
+			-- The variable (Keybind) is a boolean for whether the keybind is being held or not (HoldToInteract needs to be true)
 	end,
 })
 ```
@@ -218,8 +218,8 @@ local Dropdown = Tab:CreateDropdown({
 	CurrentOption = "Option 1",
 	Flag = "Dropdown1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
 	Callback = function(Option)
-	  	  -- The function that takes place when the selected option is changed
-    	  -- The variable (Option) is a string for the value that the dropdown was changed to
+			-- The function that takes place when the selected option is changed
+			-- The variable (Option) is a string for the value that the dropdown was changed to
 	end,
 })
 ```
