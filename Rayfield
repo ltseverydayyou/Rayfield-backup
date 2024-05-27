@@ -2427,7 +2427,6 @@ function RayfieldLibrary:CreateWindow(Settings)
 
 				SliderSettings.CurrentValue = NewVal
 				SaveConfiguration()
-				Slider.Main.Information.Text = tostring(NewVal) .. " " .. SliderSettings.Suffix
 			end
 
 			if Settings.ConfigurationSaving then
