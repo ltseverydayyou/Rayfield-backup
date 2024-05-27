@@ -2291,10 +2291,6 @@ function RayfieldLibrary:CreateWindow(Settings)
 		end
 
 		-- Slider
-local TweenService = game:GetService("TweenService")
-local UserInputService = game:GetService("UserInputService")
-local RunService = game:GetService("RunService")
-
 function Tab:CreateSlider(SliderSettings)
     local Dragging = false
     local Slider = Elements.Template.Slider:Clone()
@@ -2411,6 +2407,7 @@ function Tab:CreateSlider(SliderSettings)
 end
 
 return Tab
+
 
 	end
 
