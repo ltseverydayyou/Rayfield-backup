@@ -122,8 +122,8 @@ local ColorPicker = Tab:CreateColorPicker({
     Color = Color3.fromRGB(255, 0, 0),
     Flag = "ColorPicker1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
     Callback = function(newColor)
-       -- The function that takes place when the color picker value changes
-        -- The parameter (newColor) represents the newly selected color
+       		-- The function that takes place when the color picker value changes
+        	-- The parameter (newColor) represents the newly selected color
     end,
 })
 ```
