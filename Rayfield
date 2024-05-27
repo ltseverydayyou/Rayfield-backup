@@ -1452,10 +1452,13 @@ function RayfieldLibrary:CreateWindow(Settings)
 				end
 			end)
 
-			game:GetService("UserInputService").InputEnded:Connect(function(input, gameProcessed) if input.UserInputType == Enum.UserInputType.MouseButton1 then 
+			game:GetService("UserInputService").InputEnded:Connect(function(input, gameProcessed) 
+				if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then 
 					mainDragging = false
 					sliderDragging = false
-				end end)
+				end 
+			end)
+
 			Main.MouseButton1Down:Connect(function()
 				if opened then
 					mainDragging = true 
