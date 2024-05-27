@@ -74,10 +74,16 @@ Rayfield:Notify({
     Duration = 6.5,
     Image = 4483362458,
     Actions = { -- Notification Buttons
-        Ignore = {
-            Name = "Okay!",
+        Ignore = { -- Variant 1
+            Name = "Ignore",
             Callback = function()
-                print("The user tapped Okay!")
+                print("The user tapped Ignore")
+            end
+		},
+		Accept = { -- Variant 2
+            Name = "Accept",
+            Callback = function()
+                print("The user tapped Accept")
             end
 		},
 	},
@@ -105,7 +111,7 @@ local Toggle = Tab:CreateToggle({
 	CurrentValue = false,
 	Flag = "Toggle1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
 	Callback = function(Value)
-		-- The function that takes place when the toggle is pressed
+			-- The function that takes place when the toggle is pressed
     		-- The variable (Value) is a boolean on whether the toggle is true or false
 	end,
 })
@@ -139,11 +145,11 @@ local Slider = Tab:CreateSlider({
 	Name = "Slider Example",
 	Range = {0, 100},
 	Increment = 10,
-	Suffix = "Bananas",
+	Suffix = "Bananas", -- ( optional | you can remove this line if needed )
 	CurrentValue = 10,
 	Flag = "Slider1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
 	Callback = function(Value)
-		-- The function that takes place when the slider changes
+			-- The function that takes place when the slider changes
     		-- The variable (Value) is a number which correlates to the value the slider is currently at
 	end,
 })
@@ -178,7 +184,7 @@ local Input = Tab:CreateInput({
 	PlaceholderText = "Input Placeholder",
 	RemoveTextAfterFocusLost = false,
 	Callback = function(Text)
-		-- The function that takes place when the input is changed
+			-- The function that takes place when the input is changed
     		-- The variable (Text) is a string for the value in the text box
 	end,
 })
@@ -194,7 +200,7 @@ local Keybind = Tab:CreateKeybind({
 	HoldToInteract = false,
 	Flag = "Keybind1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
 	Callback = function(Keybind)
-		-- The function that takes place when the keybind is pressed
+			-- The function that takes place when the keybind is pressed
     		-- The variable (Keybind) is a boolean for whether the keybind is being held or not (HoldToInteract needs to be true)
 	end,
 })
