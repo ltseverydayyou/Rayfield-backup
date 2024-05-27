@@ -117,7 +117,7 @@ Toggle:Set(false)
 
 ## Creating a Color Picker
 ```lua
-local Color = Tab:CreateColorPicker({
+local ColorPicker = Tab:CreateColorPicker({
     Name = "Color Picker Example",
     Color = Color3.fromRGB(255, 0, 0),
     Flag = "ColorPicker1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
@@ -126,6 +126,10 @@ local Color = Tab:CreateColorPicker({
         -- The parameter (newColor) represents the newly selected color
     end,
 })
+```
+### Updating a Color Picker
+```lua
+ColorPicker:Set(Color3.fromRGB(255,255,255))
 ```
 
 
