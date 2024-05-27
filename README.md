@@ -125,7 +125,8 @@ local Color = Tab:CreateColorPicker({
        -- The function that takes place when the color picker value changes
         -- The parameter (newColor) represents the newly selected color
     end,
-})```
+})
+```
 
 
 ## Creating a Slider
