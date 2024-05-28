@@ -1498,7 +1498,6 @@ function RayfieldLibrary:CreateWindow(Settings)
 				ColorPicker.HexInput.InputBox.Text = hex
 			end
 			setDisplay()
-			pcall(function()ColorPickerSettings.Callback(Color3.fromHSV(h,s,v))end)
 			ColorPicker.HexInput.InputBox.FocusLost:Connect(function()
 				if not pcall(function()
 						local r, g, b = string.match(ColorPicker.HexInput.InputBox.Text, "^#?(%w%w)(%w%w)(%w%w)$")
@@ -1587,10 +1586,12 @@ function RayfieldLibrary:CreateWindow(Settings)
 					SaveConfiguration()
 				end
 			end)
+			pcall(function()ColorPickerSettings.Callback(Color3.fromHSV(h,s,v))end)
 
 			if Settings.ConfigurationSaving then
 				if Settings.ConfigurationSaving.Enabled and ColorPickerSettings.Flag then
 					RayfieldLibrary.Flags[ColorPickerSettings.Flag] = ColorPickerSettings
+					pcall(function()ColorPickerSettings.Callback(Color3.fromHSV(h,s,v))end)
 				end
 			end
 
@@ -1600,7 +1601,6 @@ function RayfieldLibrary:CreateWindow(Settings)
 				color = Color3.fromHSV(h,s,v)
 				setDisplay()
 			end
-			pcall(function()ColorPickerSettings.Callback(Color3.fromHSV(h,s,v))end)
 
 			return ColorPickerSettings
 		end
