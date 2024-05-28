@@ -1587,18 +1587,21 @@ function RayfieldLibrary:CreateWindow(Settings)
 				end
 			end)
 
-			if Settings.ConfigurationSaving then
-				if Settings.ConfigurationSaving.Enabled and ColorPickerSettings.Flag then
-					RayfieldLibrary.Flags[ColorPickerSettings.Flag] = ColorPickerSettings
-				end
-			end
-
+			
 			function ColorPickerSettings:Set(RGBColor)
 				ColorPickerSettings.Color = RGBColor
 				h,s,v = ColorPickerSettings.Color:ToHSV()
 				color = Color3.fromHSV(h,s,v)
 				setDisplay()
+      SaveConfiguration()
 			end
+
+if Settings.ConfigurationSaving then
+				if Settings.ConfigurationSaving.Enabled and ColorPickerSettings.Flag then
+					RayfieldLibrary.Flags[ColorPickerSettings.Flag] = ColorPickerSettings
+				end
+			end
+
 
 			return ColorPickerSettings
 		end
