@@ -1496,6 +1496,9 @@ function RayfieldLibrary:CreateWindow(Settings)
 				ColorPicker.RGB.BInput.InputBox.Text = tostring(b)
 				hex = string.format("#%02X%02X%02X",color.R*0xFF,color.G*0xFF,color.B*0xFF)
 				ColorPicker.HexInput.InputBox.Text = hex
+				
+				pcall(function()ColorPickerSettings.Callback(Color3.fromHSV(h,s,v))end)
+				SaveConfiguration()
 			end
 			setDisplay()
 			ColorPicker.HexInput.InputBox.FocusLost:Connect(function()
@@ -1525,7 +1528,6 @@ function RayfieldLibrary:CreateWindow(Settings)
 				if value then 
 					value = math.clamp(value,0,255)
 					h,s,v = Color3.fromRGB(oldR,oldG,oldB):ToHSV()
-
 					setDisplay()
 				else 
 					box.Text = tostring(save)
@@ -1591,7 +1593,6 @@ function RayfieldLibrary:CreateWindow(Settings)
 			if Settings.ConfigurationSaving then
 				if Settings.ConfigurationSaving.Enabled and ColorPickerSettings.Flag then
 					RayfieldLibrary.Flags[ColorPickerSettings.Flag] = ColorPickerSettings
-					pcall(function()ColorPickerSettings.Callback(Color3.fromHSV(h,s,v))end)
 				end
 			end
 
