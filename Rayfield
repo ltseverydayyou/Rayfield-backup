@@ -1416,9 +1416,8 @@ function RayfieldLibrary:CreateWindow(Settings)
 			ColorPicker.HexInput.Position = UDim2.new(0, 17, 0, 90)
 			Main.ImageTransparency = 1
 			Background.BackgroundTransparency = 1
-
-
-
+			
+			
 			local opened = false 
 			local mouse = game.Players.LocalPlayer:GetMouse()
 			Main.Image = "http://www.roblox.com/asset/?id=11415645739"
@@ -1480,12 +1479,12 @@ function RayfieldLibrary:CreateWindow(Settings)
 			local hex = string.format("#%02X%02X%02X",color.R*0xFF,color.G*0xFF,color.B*0xFF)
 			ColorPicker.HexInput.InputBox.Text = hex
 			local function setDisplay()
-				--Main
+				
 				Main.MainPoint.Position = UDim2.new(s,-Main.MainPoint.AbsoluteSize.X/2,1-v,-Main.MainPoint.AbsoluteSize.Y/2)
 				Main.MainPoint.ImageColor3 = Color3.fromHSV(h,s,v)
 				Background.BackgroundColor3 = Color3.fromHSV(h,1,1)
 				Display.BackgroundColor3 = Color3.fromHSV(h,s,v)
-				--Slider 
+				
 				local x = h * Slider.AbsoluteSize.X
 				Slider.SliderPoint.Position = UDim2.new(0,x-Slider.SliderPoint.AbsoluteSize.X/2,0.5,0)
 				Slider.SliderPoint.ImageColor3 = Color3.fromHSV(h,1,1)
@@ -1496,9 +1495,6 @@ function RayfieldLibrary:CreateWindow(Settings)
 				ColorPicker.RGB.BInput.InputBox.Text = tostring(b)
 				hex = string.format("#%02X%02X%02X",color.R*0xFF,color.G*0xFF,color.B*0xFF)
 				ColorPicker.HexInput.InputBox.Text = hex
-				
-				pcall(function()ColorPickerSettings.Callback(Color3.fromHSV(h,s,v))end)
-				SaveConfiguration()
 			end
 			setDisplay()
 			ColorPicker.HexInput.InputBox.FocusLost:Connect(function()
@@ -1513,9 +1509,9 @@ function RayfieldLibrary:CreateWindow(Settings)
 				then 
 					ColorPicker.HexInput.InputBox.Text = hex 
 				end
-				pcall(function()ColorPickerSettings.Callback(Color3.fromHSV(h,s,v))end)
 				local r,g,b = math.floor((h*255)+0.5),math.floor((s*255)+0.5),math.floor((v*255)+0.5)
 				ColorPickerSettings.Color = Color3.fromRGB(r,g,b)
+				pcall(function()ColorPickerSettings.Callback(Color3.fromHSV(h,s,v))end)
 				SaveConfiguration()
 			end)
 			--RGB
@@ -1528,12 +1524,14 @@ function RayfieldLibrary:CreateWindow(Settings)
 				if value then 
 					value = math.clamp(value,0,255)
 					h,s,v = Color3.fromRGB(oldR,oldG,oldB):ToHSV()
+
 					setDisplay()
 				else 
 					box.Text = tostring(save)
 				end
 				local r,g,b = math.floor((h*255)+0.5),math.floor((s*255)+0.5),math.floor((v*255)+0.5)
 				ColorPickerSettings.Color = Color3.fromRGB(r,g,b)
+				pcall(function()ColorPickerSettings.Callback(Color3.fromHSV(h,s,v))end)
 				SaveConfiguration()
 			end
 			ColorPicker.RGB.RInput.InputBox.FocusLost:connect(function()
@@ -1601,6 +1599,8 @@ function RayfieldLibrary:CreateWindow(Settings)
 				h,s,v = ColorPickerSettings.Color:ToHSV()
 				color = Color3.fromHSV(h,s,v)
 				setDisplay()
+				pcall(function()ColorPickerSettings.Callback(Color3.fromHSV(h,s,v))end)
+				SaveConfiguration()
 			end
 
 			return ColorPickerSettings
