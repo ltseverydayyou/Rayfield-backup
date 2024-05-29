@@ -2537,7 +2537,7 @@ function RayfieldLibrary:LoadConfiguration()
 	end
 end
 
-task.delay(3.5, RayfieldLibrary.LoadConfiguration, RayfieldLibrary)
+delay(5, RayfieldLibrary)
 if Rayfield:FindFirstChild("Toggle") and IsOnMobile then
 	Rayfield.Toggle.Visible = true
 end
