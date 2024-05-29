@@ -1586,7 +1586,6 @@ function RayfieldLibrary:CreateWindow(Settings)
 					SaveConfiguration()
 				end
 			end)
-			pcall(function()ColorPickerSettings.Callback(Color3.fromHSV(h,s,v))end)
 
 			if Settings.ConfigurationSaving then
 				if Settings.ConfigurationSaving.Enabled and ColorPickerSettings.Flag then
