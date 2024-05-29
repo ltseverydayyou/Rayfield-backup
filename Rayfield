@@ -2063,6 +2063,42 @@ function RayfieldLibrary:CreateWindow(Settings)
 			return DropdownSettings
 		end
 
+		function Tab:PlayerDropDown(lol)
+			local Dropdown = Elements.Template.Dropdown:Clone()
+			Dropdown.Name = lol.Name
+			Dropdown.Title.Text = lol.Name
+			Dropdown.Visible = true
+			Dropdown.Parent = TabPage
+		
+			Dropdown.List.Visible = false
+		
+			local function upd()
+				for _, optionFrame in ipairs(Dropdown.List:GetChildren()) do
+					if optionFrame.ClassName == "Frame" and optionFrame.Name ~= "Placeholder" then
+						optionFrame:Destroy()
+					end
+				end
+				for _, player in ipairs(game.Players:GetPlayers()) do
+					local DropdownOption = Elements.Template.Dropdown.List.Template:Clone()
+					DropdownOption.Name = player.Name
+					DropdownOption.Title.Text = player.Name
+					DropdownOption.Parent = Dropdown.List
+					DropdownOption.Visible = true
+				end
+			end
+		
+			game.Players.PlayerAdded:Connect(function(player)
+				upd()
+			end)
+			game.Players.PlayerRemoving:Connect(function(player)
+				upd()
+			end)
+		
+			upd()
+		
+			return lol
+		end		
+
 		-- Keybind
 		function Tab:CreateKeybind(KeybindSettings)
 			local CheckingForKey = false
