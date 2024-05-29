@@ -296,7 +296,7 @@ local function LoadConfiguration(Configuration)
 				if RayfieldLibrary.Flags[FlagName].Type == "ColorPicker" then
 					RayfieldLibrary.Flags[FlagName]:Set(UnpackColor(FlagValue))
 				else
-					if RayfieldLibrary.Flags[FlagName].CurrentValue or RayfieldLibrary.Flags[FlagName].CurrentKeybind or RayfieldLibrary.Flags[FlagName].CurrentOption or RayfieldLibrary.Flags[FlagName].Color ~= FlagValue then RayfieldLibrary.Flags[FlagName]:Set(FlagValue) end
+					if RayfieldLibrary.Flags[FlagName].CurrentValue or RayfieldLibrary.Flags[FlagName].CurrentKeybind or RayfieldLibrary.Flags[FlagName].CurrentInput or RayfieldLibrary.Flags[FlagName].CurrentOption or RayfieldLibrary.Flags[FlagName].Color ~= FlagValue then RayfieldLibrary.Flags[FlagName]:Set(FlagValue) end
 				end    
 			end)
 		else
@@ -312,7 +312,7 @@ local function SaveConfiguration()
 		if v.Type == "ColorPicker" then
 			Data[i] = PackColor(v.Color)
 		else
-			Data[i] = v.CurrentValue or v.CurrentKeybind or v.CurrentOption or v.Color
+			Data[i] = v.CurrentValue or v.CurrentKeybind or v.CurrentInput or v.CurrentOption or v.Color
 		end
 	end	
 	writefile(ConfigurationFolder .. "/" .. CFileName .. ConfigurationExtension, tostring(HttpService:JSONEncode(Data)))
@@ -1709,6 +1709,7 @@ function RayfieldLibrary:CreateWindow(Settings)
 
     Input.InputFrame.BackgroundColor3 = SelectedTheme.InputBackground
     Input.InputFrame.UIStroke.Color = SelectedTheme.InputStroke
+    Input.InputFrame.InputBox.Text = (InputSettings.CurrentInput or "")
 
     TweenService:Create(Input, TweenInfo.new(0.7, Enum.EasingStyle.Quint), {BackgroundTransparency = 0}):Play()
     TweenService:Create(Input.UIStroke, TweenInfo.new(0.7, Enum.EasingStyle.Quint), {Transparency = 0}):Play()
@@ -1720,6 +1721,7 @@ function RayfieldLibrary:CreateWindow(Settings)
     local function invokeCallback()
         local Success, Response = pcall(function()
             InputSettings.Callback((Input.InputFrame.InputBox.Text or ""))
+            InputSettings.CurrentInput = (Input.InputFrame.InputBox.Text or "")
         end)
         if not Success then
             TweenService:Create(Input, TweenInfo.new(0.6, Enum.EasingStyle.Quint), {BackgroundColor3 = Color3.fromRGB(85, 0, 0)}):Play()
@@ -1755,8 +1757,10 @@ function RayfieldLibrary:CreateWindow(Settings)
     end)
 
     function InputSettings:Set(text)
-        Input.InputFrame.InputBox.Text = text
+        Input.InputFrame.InputBox.Text = (text or "")
+        InputSettings.CurrentInput = (text or "")
         invokeCallback()
+        SaveConfiguration()
     end
 
     if Settings.ConfigurationSaving then
