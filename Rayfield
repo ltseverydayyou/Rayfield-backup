@@ -1719,7 +1719,7 @@ function RayfieldLibrary:CreateWindow(Settings)
 
 			Input.InputFrame.InputBox.FocusLost:Connect(function()
 				local Success, Response = pcall(function()
-					InputSettings.Callback(Input.InputFrame.InputBox.Text)
+					InputSettings.Callback((Input.InputFrame.InputBox.Text or ""))
 				end)
 				if not Success then
 					TweenService:Create(Input, TweenInfo.new(0.6, Enum.EasingStyle.Quint), {BackgroundColor3 = Color3.fromRGB(85, 0, 0)}):Play()
