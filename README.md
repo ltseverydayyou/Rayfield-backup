@@ -183,14 +183,17 @@ local Input = Tab:CreateInput({
 	Name = "Input Example",
 	PlaceholderText = "Input Placeholder",
 	RemoveTextAfterFocusLost = false,
+  Flag = "Input1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
 	Callback = function(Text)
 		-- The function that takes place when the input is changed
 		-- The variable (Text) is a string for the value in the text box
 	end,
 })
 ```
-
-
+### Updating a Adaptive Input (TextBox)
+```lua
+Input:Set("Input Text")
+```
 
 ## Creating a Keybind
 ```lua
