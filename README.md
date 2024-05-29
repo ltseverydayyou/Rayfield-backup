@@ -17,7 +17,7 @@ Rayfield will now use Secure Mode and attempt to reduce detection
 
 ### Enabling Configuration Saving
 - Enable ConfigurationSaving in the CreateWindow function
-	- Choose an appropiate FileName in the CreateWindow function
+- Choose an appropiate FileName in the CreateWindow function
 - Choose an unique flag identifier for each supported element you create
 - Place `Rayfield:LoadConfiguration()` at the bottom of all your code
 
@@ -30,24 +30,24 @@ local Window = Rayfield:CreateWindow({
 	LoadingTitle = "Rayfield Interface Suite",
 	LoadingSubtitle = "by Sirius",
 	ConfigurationSaving = {
-Enabled = true,
-FolderName = nil, -- Create a custom folder for your hub/game
-FileName = "Big Hub"
+		Enabled = true,
+		FolderName = nil, -- Create a custom folder for your hub/game
+		FileName = "Big Hub"
 	},
 	Discord = {
-Enabled = false,
-Invite = "sirius", -- The Discord invite code, do not include discord.gg/
-RememberJoins = true -- Set this to false to make them join the discord every time they load it up
+		Enabled = false,
+		Invite = "sirius", -- The Discord invite code, do not include discord.gg/
+		RememberJoins = true -- Set this to false to make them join the discord every time they load it up
 	},
 	KeySystem = true, -- Set this to true to use our key system
 	KeySettings = {
-Title = "Sirius Hub",
-Subtitle = "Key System",
-Note = "Join the discord (discord.gg/sirius)",
-FileName = "SiriusKey",
-SaveKey = true,
-GrabKeyFromSite = false, -- If this is true, set Key below to the RAW site you would like Rayfield to get the key from
-Key = "Hello"
+		Title = "Sirius Hub",
+		Subtitle = "Key System",
+		Note = "Join the discord (discord.gg/sirius)",
+		FileName = "SiriusKey",
+		SaveKey = true,
+		GrabKeyFromSite = false, -- If this is true, set Key below to the RAW site you would like Rayfield to get the key from
+		Key = "Hello"
 	}
 })
 ```
@@ -74,18 +74,18 @@ Rayfield:Notify({
 	Duration = 6.5,
 	Image = 4483362458,
 	Actions = { -- Notification Buttons
-Ignore = { -- Variant 1
-	Name = "Ignore",
-	Callback = function()
-print("The user tapped Ignore")
-	end
-},
-Accept = { -- Variant 2
-	Name = "Accept",
-	Callback = function()
-print("The user tapped Accept")
-	end
-},
+		Ignore = { -- Variant 1
+			Name = "Ignore",
+			Callback = function()
+				print("The user tapped Ignore")
+			end
+		},
+		Accept = { -- Variant 2
+			Name = "Accept",
+			Callback = function()
+				print("The user tapped Accept")
+			end
+		},
 	},
 })
 ```
@@ -95,7 +95,7 @@ print("The user tapped Accept")
 local Button = Tab:CreateButton({
 	Name = "Button Example",
 	Callback = function()
--- The function that takes place when the button is pressed
+		-- The function that takes place when the button is pressed
 	end,
 })
 ```
@@ -111,8 +111,8 @@ local Toggle = Tab:CreateToggle({
 	CurrentValue = false,
 	Flag = "Toggle1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
 	Callback = function(Value)
--- The function that takes place when the toggle is pressed
--- The variable (Value) is a boolean on whether the toggle is true or false
+		-- The function that takes place when the toggle is pressed
+		-- The variable (Value) is a boolean on whether the toggle is true or false
 	end,
 })
 ```
@@ -128,8 +128,8 @@ local ColorPicker = Tab:CreateColorPicker({
 	Color = Color3.fromRGB(255, 0, 0),
 	Flag = "ColorPicker1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
 	Callback = function(newColor)
--- The function that takes place when the color picker value changes
--- The parameter (newColor) represents the newly selected color
+		-- The function that takes place when the color picker value changes
+		-- The parameter (newColor) represents the newly selected color
 	end,
 })
 ```
@@ -149,8 +149,8 @@ local Slider = Tab:CreateSlider({
 	CurrentValue = 10,
 	Flag = "Slider1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
 	Callback = function(Value)
--- The function that takes place when the slider changes
--- The variable (Value) is a number which correlates to the value the slider is currently at
+		-- The function that takes place when the slider changes
+		-- The variable (Value) is a number which correlates to the value the slider is currently at
 	end,
 })
 ```
@@ -185,8 +185,8 @@ local Input = Tab:CreateInput({
 	RemoveTextAfterFocusLost = false,
 	Flag = "Input1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
 	Callback = function(Text)
--- The function that takes place when the input is changed
--- The variable (Text) is a string for the value in the text box
+		-- The function that takes place when the input is changed
+		-- The variable (Text) is a string for the value in the text box
 	end,
 })
 ```
@@ -203,8 +203,8 @@ local Keybind = Tab:CreateKeybind({
 	HoldToInteract = false,
 	Flag = "Keybind1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
 	Callback = function(Keybind)
--- The function that takes place when the keybind is pressed
--- The variable (Keybind) is a boolean for whether the keybind is being held or not (HoldToInteract needs to be true)
+		-- The function that takes place when the keybind is pressed
+		-- The variable (Keybind) is a boolean for whether the keybind is being held or not (HoldToInteract needs to be true)
 	end,
 })
 ```
@@ -221,8 +221,8 @@ local Dropdown = Tab:CreateDropdown({
 	CurrentOption = "Option 1",
 	Flag = "Dropdown1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
 	Callback = function(Option)
--- The function that takes place when the selected option is changed
--- The variable (Option) is a string for the value that the dropdown was changed to
+		-- The function that takes place when the selected option is changed
+		-- The variable (Option) is a string for the value that the dropdown was changed to
 	end,
 })
 ```
@@ -233,10 +233,10 @@ Dropdown:Set("Option 2") -- The new option value
 
 ## Check the value of an existing element
 To check the current value of an existing element, using the variable, you can do `ElementName.CurrentValue`, if it's a keybind or dropdown, you will need to use `KeybindName.CurrentKeybind` or `DropdownName.CurrentOption`
-	You can also check it via the flags from `Rayfield.Flags`
+You can also check it via the flags from `Rayfield.Flags`
 
 
-	## Destroying the Interface
-	```lua
-	Rayfield:Destroy()
-	```
+## Destroying the Interface
+```lua
+Rayfield:Destroy()
+```
