@@ -1,7 +1,9 @@
 # Rayfield Interface Suite
 This is the written documentation for Rayfield Interface Suite
-
-	Last updated for the Beta 9 release with improvements and bug fixes
+```
+Last updated for the Beta 9 release with improvements and bug fixes
+- @ltseverydayyou
+```
 
 ## Booting the Library
 ```lua
