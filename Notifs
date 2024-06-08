@@ -1,4 +1,4 @@
-local RayfieldLibrary = {
+local thelib = {
 	Flags = {},
 	Theme = {
 		Default = {
@@ -110,7 +110,7 @@ function FigureNotifications()
 	end
 end
 
-function RayfieldLibrary:Notify(NotificationSettings)
+function thelib:Notify(NotificationSettings)
 	spawn(function()
 		local ActionCompleted = true
 		local Notification = Notifications.Template:Clone()
