@@ -91,36 +91,42 @@ local RunService = game:GetService("RunService")
 local Players = game:GetService("Players")
 local CoreGui = game:GetService("CoreGui")
 
-local Rayfield = game:GetObjects("rbxassetid://17782670239")[1]
+local Rayfield = CoreGui:FindFirstChild("RayNotifs")
+
+if not Rayfield then
+	Rayfield = game:GetObjects("rbxassetid://17782670239")[1]
+	Rayfield.Name = "Rayfield"
+
+	if gethui then
+		Rayfield.Parent = gethui()
+	elseif syn.protect_gui then 
+		syn.protect_gui(Rayfield)
+		Rayfield.Parent = CoreGui
+	elseif CoreGui:FindFirstChild("RobloxGui") then
+		Rayfield.Parent = CoreGui:FindFirstChild("RobloxGui")
+	else
+		Rayfield.Parent = CoreGui
+	end
+
+	if gethui then
+		for _, Interface in ipairs(gethui():GetChildren()) do
+			if Interface.Name == Rayfield.Name and Interface ~= Rayfield then
+				Interface.Enabled = true
+				Interface.Name = "Rayfield-Old"
+			end
+		end
+	else
+		for _, Interface in ipairs(CoreGui:GetChildren()) do
+			if Interface.Name == Rayfield.Name and Interface ~= Rayfield then
+				Interface.Enabled = true
+				Interface.Name = "Rayfield-Old"
+			end
+		end
+	end
+end
 
 Rayfield.Enabled = true
 
-if gethui then
-	Rayfield.Parent = gethui()
-elseif syn.protect_gui then 
-	syn.protect_gui(Rayfield)
-	Rayfield.Parent = CoreGui
-elseif CoreGui:FindFirstChild("RobloxGui") then
-	Rayfield.Parent = CoreGui:FindFirstChild("RobloxGui")
-else
-	Rayfield.Parent = CoreGui
-end
-
-if gethui then
-	for _, Interface in ipairs(gethui():GetChildren()) do
-		if Interface.Name == Rayfield.Name and Interface ~= Rayfield then
-			Interface.Enabled = true
-			Interface.Name = "Rayfield-Old"
-		end
-	end
-else
-	for _, Interface in ipairs(CoreGui:GetChildren()) do
-		if Interface.Name == Rayfield.Name and Interface ~= Rayfield then
-			Interface.Enabled = true
-			Interface.Name = "Rayfield-Old"
-		end
-	end
-end
 
 local Camera = workspace.CurrentCamera
 local request = (syn and syn.request) or (http and http.request) or http_request
