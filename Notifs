@@ -95,7 +95,6 @@ local Rayfield = CoreGui:FindFirstChild("RayNotifs")
 
 if not Rayfield then
 	Rayfield = game:GetObjects("rbxassetid://17782670239")[1]
-	Rayfield.Name = "Rayfield"
 
 	if gethui then
 		Rayfield.Parent = gethui()
@@ -356,19 +355,7 @@ end)()
 
 function thelib:Notify(NotificationSettings)
 	spawn(function()
-		local ActionCount = 0
-		local ActionCompleted = false
-		
-		local function CheckActionsCompleted()
-			if ActionCompleted then
-				return
-			end
-			ActionCount = ActionCount - 1
-			if ActionCount <= 0 then
-				ActionCompleted = true
-			end
-		end
-		
+		local ActionCompleted = true
 		local Notification = Notifications.Template:Clone()
 		Notification.Parent = Notifications
 		Notification.Name = NotificationSettings.Title or "Unknown Title"
@@ -389,7 +376,7 @@ function thelib:Notify(NotificationSettings)
 
 		if NotificationSettings.Actions then
 			for _, Action in pairs(NotificationSettings.Actions) do
-				ActionCount = ActionCount + 1
+				ActionCompleted = false
 				local NewAction = Notification.Actions.Template:Clone()
 				NewAction.BackgroundColor3 = SelectedTheme.NotificationActionsBackground
 				if SelectedTheme ~= thelib.Theme.Default then
@@ -403,13 +390,13 @@ function thelib:Notify(NotificationSettings)
 				NewAction.TextTransparency = 1
 				NewAction.Size = UDim2.new(0, NewAction.TextBounds.X + 27, 0, 36)
 
-				 NewAction.MouseButton1Click:Connect(function()
-                    local Success, Response = pcall(Action.Callback)
-                    if not Success then
-                        print("Error in callback for action '" .. Action.Name .. "': " .. tostring(Response))
-                    end
-                    CheckActionsCompleted()
-                end)
+				NewAction.MouseButton1Click:Connect(function()
+					local Success, Response = pcall(Action.Callback)
+					if not Success then
+						print("Rayfield | Action: "..Action.Name.." Callback Error " ..tostring(Response))
+					end
+					ActionCompleted = true
+				end)
 			end
 		end
 		Notification.BackgroundColor3 = SelectedTheme.Background
