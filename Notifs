@@ -1,3 +1,6 @@
+local TweenService = game:GetService("TweenService")
+local NotificationDuration = 6.5
+
 local thelib = {
 	Flags = {},
 	Theme = {
@@ -81,8 +84,6 @@ local thelib = {
 		}
 	}
 }
-
-local TweenService = game:GetService("TweenService")
 
 local Rayfield = game:GetObjects("rbxassetid://17782670239")[1]
 
