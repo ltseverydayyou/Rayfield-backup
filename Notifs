@@ -93,7 +93,7 @@ local CoreGui = game:GetService("CoreGui")
 
 local Rayfield = game:GetObjects("rbxassetid://17782670239")[1]
 
-Rayfield.Enabled = false
+Rayfield.Enabled = true
 
 if gethui then
 	Rayfield.Parent = gethui()
@@ -109,14 +109,14 @@ end
 if gethui then
 	for _, Interface in ipairs(gethui():GetChildren()) do
 		if Interface.Name == Rayfield.Name and Interface ~= Rayfield then
-			Interface.Enabled = false
+			Interface.Enabled = true
 			Interface.Name = "Rayfield-Old"
 		end
 	end
 else
 	for _, Interface in ipairs(CoreGui:GetChildren()) do
 		if Interface.Name == Rayfield.Name and Interface ~= Rayfield then
-			Interface.Enabled = false
+			Interface.Enabled = true
 			Interface.Name = "Rayfield-Old"
 		end
 	end
@@ -353,7 +353,7 @@ function thelib:Notify(NotificationSettings)
 		local ActionCompleted = true
 		local Notification = Notifications.Template:Clone()
 		Notification.Parent = Notifications
-		Notification.Name = NotificationSettings and NotificationSettings.Title or "Unknown Title"
+		Notification.Name = NotificationSettings.Title or "Unknown Title"
 		Notification.Visible = true
 
 		local blurlight = nil
@@ -369,7 +369,7 @@ function thelib:Notify(NotificationSettings)
 
 		Notification.Actions.Template.Visible = false
 
-		if NotificationSettings and NotificationSettings.Actions then
+		if NotificationSettings.Actions then
 			for _, Action in pairs(NotificationSettings.Actions) do
 				ActionCompleted = false
 				local NewAction = Notification.Actions.Template:Clone()
@@ -394,16 +394,15 @@ function thelib:Notify(NotificationSettings)
 				end)
 			end
 		end
-
 		Notification.BackgroundColor3 = SelectedTheme.Background
-		Notification.Title.Text = NotificationSettings and NotificationSettings.Title or "Unknown"
+		Notification.Title.Text = NotificationSettings.Title or "Unknown"
 		Notification.Title.TextTransparency = 1
 		Notification.Title.TextColor3 = SelectedTheme.TextColor
-		Notification.Description.Text = NotificationSettings and NotificationSettings.Content or "Unknown"
+		Notification.Description.Text = NotificationSettings.Content or "Unknown"
 		Notification.Description.TextTransparency = 1
 		Notification.Description.TextColor3 = SelectedTheme.TextColor
 		Notification.Icon.ImageColor3 = SelectedTheme.TextColor
-		if NotificationSettings and NotificationSettings.Image then
+		if NotificationSettings.Image then
 			Notification.Icon.Image = "rbxassetid://"..tostring(NotificationSettings.Image) 
 		else
 			Notification.Icon.Image = "rbxassetid://3944680095"
@@ -424,7 +423,6 @@ function thelib:Notify(NotificationSettings)
 		TweenService:Create(Notification.Title, TweenInfo.new(0.7, Enum.EasingStyle.Quint), {TextTransparency = 0}):Play()
 		TweenService:Create(Notification.Description, TweenInfo.new(0.6, Enum.EasingStyle.Quint), {TextTransparency = 0.2}):Play()
 		wait(0.2)
-
 		if getgenv().SecureMode == nil then
 			TweenService:Create(Notification, TweenInfo.new(0.3, Enum.EasingStyle.Quint), {BackgroundTransparency = 0.4}):Play()
 		else
@@ -442,8 +440,8 @@ function thelib:Notify(NotificationSettings)
 			})
 		end
 
-		if not NotificationSettings or not NotificationSettings.Actions then
-			wait((NotificationSettings and NotificationSettings.Duration) or NotificationDuration - 0.5)
+		if not NotificationSettings.Actions then
+			wait(NotificationSettings.Duration or NotificationDuration - 0.5)
 		else
 			wait(0.8)
 			TweenService:Create(Notification, TweenInfo.new(0.7, Enum.EasingStyle.Quint), {Size = UDim2.new(0, 295, 0, 132)}):Play()
@@ -471,6 +469,7 @@ function thelib:Notify(NotificationSettings)
 		TweenService:Create(Notification, TweenInfo.new(0.6, Enum.EasingStyle.Quint), {Size = UDim2.new(0, 280, 0, 83)}):Play()
 		TweenService:Create(Notification.Icon, TweenInfo.new(0.4, Enum.EasingStyle.Quint), {ImageTransparency = 1}):Play()
 		TweenService:Create(Notification, TweenInfo.new(0.8, Enum.EasingStyle.Quint), {BackgroundTransparency = 0.6}):Play()
+
 		wait(0.3)
 		TweenService:Create(Notification.Title, TweenInfo.new(0.6, Enum.EasingStyle.Quint), {TextTransparency = 0.4}):Play()
 		TweenService:Create(Notification.Description, TweenInfo.new(0.6, Enum.EasingStyle.Quint), {TextTransparency = 0.5}):Play()
@@ -488,3 +487,5 @@ function thelib:Notify(NotificationSettings)
 		Notification:Destroy()
 	end)
 end
+
+return thelib
