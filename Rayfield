@@ -127,7 +127,7 @@ elseif syn.protect_gui then
 elseif CoreGui:FindFirstChild("RobloxGui") then
 	Rayfield.Parent = CoreGui:FindFirstChild("RobloxGui")
 else
-	Rayfield.Parent = CoreGui
+	Rayfield.Parent = (CoreGui or Players.LocalPlayer:FindFirstChild("PlayerGui"))
 end
 
 if gethui then
