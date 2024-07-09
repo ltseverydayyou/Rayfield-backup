@@ -8,7 +8,7 @@ iRay  | Programming
 
 ]]
 
-
+print('ray ray')
 
 local Release = "Beta 9 | fixed by v3r_"
 local NotificationDuration = 6.5
