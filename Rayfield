@@ -21,28 +21,28 @@ local HttpService = game:GetService("HttpService")
 local request = (syn and syn.request) or (fluxus and fluxus.request) or (http and http.request) or http_request or request
 
 local function getExecutor() 
-	if identifyexecutor then 
-		local e,v = identifyexecutor()
-		return tostring(e) .. "/" .. tostring(v)
-	else
-		return "Unknown"
-	end
+    local name, version
+    if identifyexecutor then 
+        name, version = identifyexecutor()
+    end
+    return { Name = name or "", Version = version or "" }
 end
 
 if request then
-	local reqBody = {
-		["executor"] = getExecutor(),
-		["interface_build"] = InterfaceBuild,
-		["release"] = Release,
-	}
-
-	pcall(function()
-		request({
-			Url = "https://analytics.sirius.menu/v1/execution",
-			Method = "POST",
-			Body = HttpService:JSONEncode(reqBody)
-		})
-	end)
+    pcall(request, {
+        Url = "https://analytics.sirius.menu/v1/report/0193dbf8-7da1-79de-b399-2c0f68b0a9ad",
+        Method = "POST",
+        Headers = {
+            ["Content-Type"] = "application/json"
+        },
+        Body = HttpService:JSONEncode({
+            Executor = getExecutor(),
+            Script = {
+                Interface = InterfaceBuild,
+                Release = Release
+            }
+        })
+    })
 end
 
 local RayfieldLibrary = {
@@ -511,7 +511,6 @@ if UserInputService.TouchEnabled then
 end
 
 
-
 -- Object Variables
 
 local Main = Rayfield.Main
@@ -531,6 +530,7 @@ Rayfield.DisplayOrder = 100
 LoadingFrame.Version.Text = Release
 
 
+local Icons = useStudio and require(script.Parent.icons) or loadstring(game:HttpGet('https://raw.githubusercontent.com/SiriusSoftwareLtd/Rayfield/refs/heads/main/icons.lua'))()
 
 -- Variables
 
@@ -588,16 +588,12 @@ local function ChangeTheme(Theme)
 end
 
 local function getIcon(name : string)
-	-- full credit to latte softworks :)
-	local iconData = not useStudio and game:HttpGet('https://raw.githubusercontent.com/SiriusSoftwareLtd/Rayfield/refs/heads/main/icons.lua')
-	local icons = useStudio and require(script.Parent.icons) or loadstring(iconData)()
-
 	name = string.match(string.lower(name), "^%s*(.*)%s*$") :: string
-	local sizedicons = icons['48px']
+	local sizedicons = Icons['48px']
 
 	local r = sizedicons[name]
 	if not r then
-		error("Lucide Icons: Failed to find icon by the name of \"" .. name .. "\.", 2)
+		error("Lucide Icons: Failed to find icon by the name of \"" .. name .. "\".", 2)
 	end
 
 	local rirs = r[2]
